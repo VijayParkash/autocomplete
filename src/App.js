@@ -11,7 +11,7 @@ function App() {
   );
   const [showSearchedItem, setShowSearchedItem] = useState(true);
 
-  const HandleChange = (event) => {
+  const handleChange = (event) => {
     event.preventDefault();
     let value = event.target.value;
     const filteredList = List.filter((l) =>
@@ -23,7 +23,7 @@ function App() {
     setList((list) => filteredList);
   };
 
-  const HandlePreviousSearch = (value) => {
+  const handlePreviousSearch = (value) => {
     setInputValue(value);
     setPreviousSearch((p) => [value, ...p].slice(0, 5));
     localStorage.setItem(
@@ -32,16 +32,16 @@ function App() {
     );
   };
 
-  const ShowPreviousSearch = () => {
+  const showPreviousSearch = () => {
     setShowSearchedItem(true);
   };
 
-  const HandleClear = () => {
+  const handleClear = () => {
     setInputValue("");
     setShowSearchedItem(true);
   };
 
-  const HandleSubmit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     setPreviousSearch((p) => [inputValue, ...p].slice(0, 5));
     localStorage.setItem(
@@ -53,7 +53,7 @@ function App() {
     );
   };
 
-  const HighLightText = (text, input) => {
+  const highLightText = (text, input) => {
     const startIndex = text.toLowerCase().indexOf(input.toLowerCase());
     const endIndex = startIndex + input.length;
     return (
@@ -68,16 +68,16 @@ function App() {
   return (
     <>
       <div className="autocomplete">
-        <form className="flexbox" onSubmit={HandleSubmit}>
+        <form className="flexbox" onSubmit={handleSubmit}>
           <input
             type="text"
             autoFocus
             value={inputValue}
             placeholder="Search here...."
-            onChange={HandleChange}
-            onClick={ShowPreviousSearch}
+            onChange={handleChange}
+            onClick={showPreviousSearch}
           ></input>
-          <button type="button" className="button" onClick={HandleClear}>
+          <button type="button" className="button" onClick={handleClear}>
             Clear
           </button>
         </form>
@@ -87,10 +87,10 @@ function App() {
               return (
                 <div
                   key={i}
-                  onClick={() => HandlePreviousSearch(item)}
+                  onClick={() => handlePreviousSearch(item)}
                   className="option"
                 >
-                  {HighLightText(item, inputValue)}
+                  {highLightText(item, inputValue)}
                 </div>
               );
             })}
@@ -100,7 +100,7 @@ function App() {
               return (
                 <div
                   key={i}
-                  onClick={() => HandlePreviousSearch(item)}
+                  onClick={() => handlePreviousSearch(item)}
                   className="option"
                 >
                   {item}
